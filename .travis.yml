@@ -1,28 +1,24 @@
 language: node_js
 
-# https://github.com/nodejs/Release
-node_js:
-  - 11 # EOL: June 2019
-  - 10 # EOL: April 2021
-  - 8 # EOL: December 2019
-  - 6 # EOL: April 2019
-
 os:
   - linux
 
+# https://github.com/nodejs/Release
 matrix:
   fast_finish: true
   include:
-    - name: "Production build"
-      node_js: 10 # Version used to deploy to npm registry
-      os: linux
-      env: BUILD_ENV=production
-    - node_js: 10
-      os: osx
     - node_js: 10
       os: windows
-      cache: false
+      cache: false # windows cache uploads are slow
       env: YARN_GPG=no # starts gpg-agent that never exits
+    - node_js: 10
+      os: osx
+    - name: "Production build"
+      node_js: 10 # Version used to deploy to npm registry
+      env: BUILD_ENV=production
+    - node_js: 11
+    - node_js: 10
+    - node_js: 8.10.0
 
 cache: yarn
 
